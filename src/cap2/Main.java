@@ -58,6 +58,17 @@ public class Main {
         printList(users);
 
 
+        System.out.println("Increase u2 points by 1");
+        Runnable increaseU2PointsByOne = u2::increasePoints; // Invoking by method reference
+        increaseU2PointsByOne.run();
+        printList(users);
+
+        System.out.println("Increase u3 points by 5");
+        Runnable increaseU3Points = () -> u3.increasePoints(5); // Invoking by lambda
+        increaseU3Points.run();
+        printList(users);
+
+
     }
 
     public static void printList(List list) {

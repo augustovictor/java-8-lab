@@ -47,4 +47,12 @@ class User {
     public void makeModerator() {
         this.setModerator(true);
     }
+
+    public void increasePoints() {
+        this.setPoints(this.getPoints() + 1);
+    }
+
+    public void increasePoints(int points) {
+        this.setPoints(this.getPoints() + points);
+    }
 }
