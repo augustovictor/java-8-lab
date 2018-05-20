@@ -1,11 +1,12 @@
 package cap2;
 
-class User {
+public class User {
     private String name;
     private int points;
     private boolean moderator;
 
     public User() {
+        setPoints();
     }
 
     public User(String name, int points, boolean moderator) {
@@ -32,6 +33,10 @@ class User {
 
     public void setPoints(int points) {
         this.points = points;
+    }
+
+    public void setPoints() {
+        this.points = (int) (Math.random() * 100);
     }
 
     public boolean isModerator() {
