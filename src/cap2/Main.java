@@ -5,11 +5,12 @@ import java.util.function.Predicate;
 
 public class Main {
     public static void main(String[] args) {
+        User u4 = new User("U4", 10, false);
         User u1 = new User("U1", 10, false);
         User u3 = new User("U3", 20, false);
         User u2 = new User("U2", 30, false);
 
-        List<User> users = new ArrayList<User>(Arrays.asList(u1, u3, u2));
+        List<User> users = new ArrayList<User>(Arrays.asList(u1, u4, u3, u2));
         //
         // users.forEach(u -> System.out.println(u.getName()));
         // users.forEach(u -> System.out.println(u.isModerator()));
@@ -28,12 +29,18 @@ public class Main {
         printList(users);
 
         System.out.println("Order by name");
-        users.sort(Comparator.comparing(u -> u.getName()));
+        // users.sort(Comparator.comparing(u -> u.getName())); // Alternative 1
+        users.sort(Comparator.nullsLast(Comparator.comparing(User::getName))); // Alternative 2
         printList(users);
 
         System.out.println("Order by points");
         // Use comparingInt to avoid autoboxing
-        users.sort(Comparator.comparingInt(u -> u.getPoints()));
+        // users.sort(Comparator.comparingInt(u -> u.getPoints())); // Alternative 1
+        users.sort(Comparator.comparingInt(User::getPoints).thenComparing(User::getName));
+        printList(users);
+
+        System.out.println("Order by points DESC");
+        users.sort(Comparator.comparingInt(User::getPoints).thenComparing(User::getName).reversed());
         printList(users);
 
         List<String> words = Arrays.asList("Great title", "Short title", "Almost a title");
@@ -42,6 +49,14 @@ public class Main {
         System.out.println(words.toString());
         words.sort(Comparator.reverseOrder());
         System.out.println(words.toString());
+
+        System.out.println("Make all users moderators");
+        // users.forEach(u -> u.setModerator(true)); // Alternative 1
+        users.forEach(User::makeModerator); // Alternative 2 (preferred)
+        // Consumer<User> makeModerator = User::makeModerator; // Alternative 3
+        // users.forEach(makeModerator);
+        printList(users);
+
 
     }
 

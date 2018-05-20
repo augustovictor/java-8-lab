@@ -43,4 +43,8 @@ class User {
                 ", moderator=" + moderator +
                 '}';
     }
+
+    public void makeModerator() {
+        this.setModerator(true);
+    }
 }
