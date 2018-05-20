@@ -6,8 +6,8 @@ import java.util.function.Predicate;
 public class Main {
     public static void main(String[] args) {
         User u1 = new User("U1", 10, false);
-        User u2 = new User("U2", 30, false);
         User u3 = new User("U3", 20, false);
+        User u2 = new User("U2", 30, false);
 
         List<User> users = new ArrayList<User>(Arrays.asList(u1, u3, u2));
         //
@@ -27,7 +27,13 @@ public class Main {
         users.removeIf(u -> u.getPoints() > 30);
         printList(users);
 
+        System.out.println("Order by name");
         users.sort(Comparator.comparing(u -> u.getName()));
+        printList(users);
+
+        System.out.println("Order by points");
+        // Use comparingInt to avoid autoboxing
+        users.sort(Comparator.comparingInt(u -> u.getPoints()));
         printList(users);
 
         List<String> words = Arrays.asList("Great title", "Short title", "Almost a title");
@@ -40,6 +46,8 @@ public class Main {
     }
 
     public static void printList(List list) {
+        System.out.println("----------------");
         list.forEach(e -> System.out.println(e.toString()));
+        System.out.println("----------------");
     }
 }
