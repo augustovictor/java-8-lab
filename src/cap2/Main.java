@@ -1,9 +1,15 @@
 package cap2;
 
 import java.util.*;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class Main {
+    public Main() {
+    }
+
     public static void main(String[] args) {
         User u4 = new User("U4", 10, false);
         User u1 = new User("U1", 10, false);
@@ -69,11 +75,22 @@ public class Main {
         printList(users);
 
 
+        // Constructor reference
+        System.out.println("Constructor reference");
+        Supplier<User> userSupplier = User::new; // There is also use a constructor reference with an array if needed. E.g., int[]::new
+        System.out.println(userSupplier.get());
+
+        Function<String, User> userCreator = User::new; // Java also provides an interface to instantiate by 2 args. But we can extend it and make it as many as we want;
+        User u5 = userCreator.apply("Victor");
+        System.out.println(u5);
+
+
+
     }
 
     public static void printList(List list) {
         System.out.println("----------------");
-        list.forEach(e -> System.out.println(e.toString()));
+        list.forEach(System.out::println);
         System.out.println("----------------");
     }
 }
