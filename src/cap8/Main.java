@@ -44,5 +44,24 @@ public class Main {
         int pointsProduct = users.stream().mapToInt(User::getPoints).reduce(1, (a, b) -> a * b);
         System.out.println("Points product: " + pointsProduct);
 
+        System.out.println("Iterators in streams");
+        // We cannot loop a stream twice with a terminal operation since it is marked as already being used.
+        // We may want to use an Iterator to change stream objects.
+        // We should not change object states if we're working them in parallel
+        users.stream().iterator().forEachRemaining(System.out::println);
+        users.get(0).setModerator(users.get(0).getPoints() > 70);
+        System.out.println("Is there a moderator user? " + users.stream().anyMatch(User::isModerator));
+        System.out.println("All users are moderators. " + users.stream().allMatch(User::isModerator));
+        System.out.println("There is no user that is a moderator. " + users.stream().noneMatch(User::isModerator));
+
+        System.out.println("Count elements in stream: " + users.stream().count());
+        System.out.println("Do not consider the first three elements. " + users.stream().skip(3).count());
+        System.out.println("Consider up to 5 elements. " + users.stream().limit(5).count());
+        System.out.println("Skip the first 2 elements and consider the next 5. " + users.stream().skip(2).limit(5).count());
+
+        Stream<String> stringStream = Stream.of("p1", "p2", "p3", "p4");
+        stringStream.forEach(System.out::println);
+
+
     }
 }
