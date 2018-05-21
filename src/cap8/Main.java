@@ -11,7 +11,7 @@ import static cap7.Main.loadUsers;
 
 public class Main {
     public static void main(String[] args) {
-        List<User> users = loadUsers(20);
+        List<User> users = loadUsers(10);
         // System.out.println("Name of the two users with points above 70");
         // List<String> usersWithMostPoints = users.stream()
         //         .filter(u -> u.getPoints() > 70)
@@ -31,5 +31,18 @@ public class Main {
                 .sorted(Comparator.comparing(User::getName))
                 .peek(System.out::println)
                 .findAny();
+
+        System.out.println("Reduction operations");
+        double averagePontuation = users.stream()
+                .mapToInt(User::getPoints)
+                .average().orElse(0.0);
+        System.out.println("Average points: " + averagePontuation);
+
+        int pointsSum = users.stream().mapToInt(User::getPoints).sum();
+        System.out.println("Points sum: " + pointsSum);
+
+        int pointsProduct = users.stream().mapToInt(User::getPoints).reduce(1, (a, b) -> a * b);
+        System.out.println("Points product: " + pointsProduct);
+
     }
 }
