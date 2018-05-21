@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static cap2.Main.printList;
@@ -51,6 +52,13 @@ public class Main {
         System.out.println("Listing names only");
         List<String> names = users.stream().map(User::getName).collect(toList());
         System.out.println(names.toString());
+
+        // Avoiding autoboxing using streams
+        System.out.println("Points only");
+        IntStream points = users.stream().mapToInt(User::getPoints);
+        System.out.println(points);
+
+        System.out.println("Average: " + points.average().getAsDouble());
 
 
 
