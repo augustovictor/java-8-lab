@@ -9,3 +9,5 @@
 - Default method: Interface methods that receive code implementation in its params;
 - `@FunctionalInterface`: Interface that has **one** `abstract` method only and this can be used through lambda;
     - It can have other methods but they should be `default`;# java-8-lab
+- Terminal operations: findAny, collect, forEach;
+- Stateful operation: Need to process the whole stream even though its terminal operation does not demand it;
