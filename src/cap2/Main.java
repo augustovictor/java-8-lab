@@ -1,6 +1,7 @@
 package cap2;
 
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -27,7 +28,7 @@ public class Main {
         Consumer<User> printMessage = u -> System.out.println("Print pre message...");
         Consumer<User> printName = u -> System.out.println(u.getName());
 
-        // users.forEach(printMessage.andThen(printName));
+        users.forEach(printMessage.andThen(printName));
 
         users.removeIf(u -> u.getPoints() > 30);
         printList(users);

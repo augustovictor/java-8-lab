@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -55,11 +56,18 @@ public class Main {
 
         // Avoiding autoboxing using streams
         System.out.println("Points only");
+
+        Consumer<User> setPointToZero = u -> u.setPoints(0);
+        // users.forEach(setPointToZero);
         IntStream points = users.stream().mapToInt(User::getPoints);
         System.out.println(points);
 
-        System.out.println("Average: " + points.average().getAsDouble());
+        System.out.println("Average: " + points.average().orElse(0.0));
+        // System.out.println("Average: " + points.average().orElseThrow(IllegalAccessError::new));
+        // System.out.println("Average times 10: " + points.average().ifPresent(p -> ););
 
+        System.out.println("User with most points");
+        System.out.println(users.stream().max(Comparator.comparingInt(User::getPoints)).map(User::getName).orElse("No user found"));
 
 
 
