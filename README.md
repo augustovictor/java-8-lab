@@ -11,3 +11,6 @@
     - It can have other methods but they should be `default`;# java-8-lab
 - Terminal operations: findAny, collect, forEach;
 - Stateful operation: Need to process the whole stream even though its terminal operation does not demand it;
+
+Observations:
+- We cannot declare variables inside lambdas;

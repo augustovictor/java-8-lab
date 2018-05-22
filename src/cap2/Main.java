@@ -1,9 +1,14 @@
 package cap2;
 
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import static java.util.stream.Collectors.toList;
 
 public class Main {
     public Main() {
@@ -83,7 +88,24 @@ public class Main {
         User u5 = userCreator.apply("Victor");
         System.out.println(u5);
 
+        System.out.println("Infinite streams");
+        // This is a lazy generation. That means we only generate values when requested
+        Random rand = new Random(0);
+        // boxed returns us a Stream<Integer> so we can invoke collect on it. Otherwise we'd have to call .toArray
+        List<Integer> integerList = IntStream
+                .generate(() -> rand.nextInt())
+                .limit(4)
+                .boxed()
+                .collect(toList());
 
+        printList(integerList);
+
+        System.out.println("Flat map");
+        List<List> indexes = new ArrayList<>();
+        indexes.add(Arrays.asList(1,2,3)); // [1,2,3]
+        indexes.add(Arrays.asList(Arrays.asList(2,2,2), Arrays.asList(3,3,3))); // [[2,2,2], [3,3,3]]
+
+        indexes.stream().flatMap(a -> a.stream()).forEach(System.out::println);
 
     }
 
