@@ -1,25 +1,24 @@
 package cap9;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import cap2.User;
 
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import static cap7.Main.loadUsers;
 import static java.nio.file.Files.lines;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        Map<Path, Long> linesPerFile = new HashMap<>();
-
-        Stream<String> strings = Files.list(Paths.get("./"))
-                .filter(p -> p.toString().endsWith(".txt"))
+    public static void main(String[] args) {
+        List<User> users = loadUsers(10);
+        Map<String, User> userAndName = users.stream()
                 .collect(Collectors.toMap(
-                        p -> p,
-                        p -> lines(p).count()
+                        User::getName,
+                        Function.identity()
                 ));
+
+        System.out.println(userAndName);
     }
 }
